@@ -1,0 +1,123 @@
+$border-radius:40px;
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin rounded-buttons {
+  $size: 40px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: $size;
+  height: $size;
+  border-radius: 50%;
+  padding: 8px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+
+  &:hover {
+    background-color: hsl(0, 0%, 89%)
+  }
+
+  >img {
+    width: 100%;
+  }
+}
+
+.search-box {
+  @include flex-center;
+  flex: 1 1 600px;
+  max-width: 600px;
+  $search-icon-size: 20px;
+  $search-icon-gap: 15px;
+
+  &.shrink-search {
+    margin-left: 10px !important;
+  }
+
+  &.shrink-search,
+  &:has(.search-input:focus) {
+    & {
+      $extend: calc($search-icon-size + $search-icon-gap);
+      flex-basis: calc(600px + $extend);
+      margin-left: calc(-1 * $extend);
+    }
+
+    .search-bar {
+      border-color: hsl(240, 100%, 37%);
+      box-shadow: inset 0 1px 2px #bbb;
+
+      .search-icon {
+        align-self: center;
+        display: inline-flex;
+      }
+    }
+  }
+
+  .search-bar {
+    @include flex-center;
+    align-items: stretch;
+    height: 40px;
+    flex-grow: 1;
+    border: 1px solid black;
+    border-top-left-radius: $border-radius;
+    border-bottom-left-radius: $border-radius;
+    border-color: #ccc;
+
+    .search-icon {
+      width: $search-icon-size;
+      height: $search-icon-size;
+      margin-left: $search-icon-gap;
+      display: none;
+    }
+
+    form {
+      display: flex;
+      flex-grow: 1;
+      padding-left: $search-icon-gap;
+
+      .search-input {
+        width: 0;
+        flex-grow: 1;
+        flex-shrink: 1;
+        border: none;
+        outline: none;
+        background-color: transparent;
+        font-size: 15.5px;
+
+      }
+    }
+  }
+
+  .search-btn {
+    width: 60px;
+    border: 1px solid #ccc;
+    border-left: none;
+    background-color: #eee;
+    border-top-right-radius: $border-radius;
+    border-bottom-right-radius: $border-radius;
+    align-self: stretch;
+    cursor: pointer;
+    margin-right: 10px;
+
+    img {
+      $size: 25px;
+      width: $size;
+      height: $size;
+    }
+  }
+
+  .show-search-btn {
+    display: none;
+  }
+
+  .voice-search {
+    margin-left: 2px;
+  }
+}

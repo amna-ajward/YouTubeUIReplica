@@ -1,5 +1,4 @@
 $circle-buttons-large: 50px;
-$border-radius:30px;
 
 @mixin flex-center {
   display: flex;
@@ -7,121 +6,151 @@ $border-radius:30px;
   justify-content: center;
 }
 
-@mixin circle-buttons {
+@mixin rounded-buttons {
   $size: 40px;
-  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   width: $size;
   height: $size;
+  border-radius: 50%;
   padding: 8px;
   border: none;
   background-color: transparent;
+  cursor: pointer;
 
   &:hover {
-    background-color: #eee
+    background-color: hsl(0, 0%, 89%)
+  }
+
+  >img {
+    width: 100%;
   }
 }
 
 header {
+  position: relative;
+  background-color: white
+}
+
+.header-main,
+.header-search {
   @include flex-center;
   justify-content: space-between;
-  padding: .2rem .25rem;
+  height: 50px;
+
+  >div {
+    @include flex-center;
+
+    [alt] {
+      font-size: 10px;
+    }
+  }
 }
 
-.guide {
-  @include flex-center;
+.header-search {
+  position: absolute;
+  width: 100%;
+  background-color: inherit;
 
-  .btn-menu {
-    @include circle-buttons;
-    margin-right: 0.7rem;
+  @media only screen and (min-width: 650px) {
+    display: none;
   }
 }
 
-.search-box {
-  @include flex-center;
-  flex-grow: 1;
-  padding: 0 1rem;
-  margin-left: 50px;
+.header-main {
+  column-gap: 70px;
+  align-items: stretch;
 
-  .magnifier {
-    display: none;
-    margin: 0 0px 0 16px;
-  }
-
-  &:has(#search-input:focus) {
-    .search-bar {
-      $extension: 36px;
-      flex-basis: calc($extension + 600px);
-      margin-left: calc($extension * -1);
-    }
-
-    .magnifier {
-      display: inline-flex;
-    }
-
-    #search-input {
-      border: none;
-      outline: none;
-    }
-  }
-
-  .search-bar {
-    display: flex;
-    flex-basis: 600px;
-    border: 1px solid #ccc;
-    border-radius: 50px;
-
-    .search-form {
-      @include flex-center;
-      flex-grow: 1;
-
-      #search-input {
-        flex-grow: 1;
-        font-size: 16px;
-        line-height: 24px;
-        margin: .35rem 0;
-        padding-left: 12px;
-        background-color: transparent;
-        border: none;
-      }
-
-      #search-button {
-        @include flex-center;
-        width: 64px;
-        height: 100%;
-        border-top-right-radius: $border-radius;
-        border-bottom-right-radius: $border-radius;
-        border: none;
-        border-left: 1px solid #ccc;
-      }
-    }
-  }
-
-  .search-button-narrow {
-    display: none;
-  }
-
-  .btn-voice-search {
-    @include circle-buttons;
-    margin-left: .7rem;
+  >div:first-of-type,
+  >div:last-of-type {
+    justify-content: space-between;
     flex-shrink: 0;
   }
+
+  >div:first-of-type {
+    width: 8.5em;
+  }
+
+  >div:last-of-type {
+    width: 7.5em;
+  }
+
+  >div:nth-child(2) {
+    flex-grow: 1;
+  }
 }
 
-.nav-icons {
+.menu-btn {
+  @include rounded-buttons;
+}
+
+.nav-links {
   @include flex-center;
 
-  button {
-    @include circle-buttons;
-    margin-left: .5rem;
+  >button {
+    @include rounded-buttons;
+  }
 
-    &:last-child {
-      background-color: #eee;
-      width: $circle-buttons-large;
-      height: $circle-buttons-large;
+  .profile-btn {
+    $size: 50px;
+    width: $size;
+    height: $size;
+
+    &:hover {
+      background-color: transparent;
+    }
+  }
+}
+
+
+
+.rounded-btn {
+  @include rounded-buttons;
+  flex-shrink: 0;
+}
+
+.hide {
+  display: none;
+}
+
+@media only screen and (max-width: 650px) {
+  .header-main {
+    column-gap: 2px;
+
+    >div:last-of-type {
+      width: 6.6em;
     }
 
-    img {
-      width: 100%;
+    .search-box {
+      justify-content: flex-end !important;
+
+      .search-bar {
+        display: none !important;
+
+        .search-icon {
+          display: inline-flex;
+        }
+      }
+
+      .search-btn {
+        display: none !important;
+      }
+
+
+      .show-search-btn {
+        display: inline-flex;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 425px) {
+  .search-box {
+    .voice-search {
+      display: none;
     }
   }
 }
